@@ -9,6 +9,7 @@ class ShowManager(models.Manager):
             errors['network'] = "Error, Network name too short."
         if len(postData['desc']) < 10:
             errors['desc'] = "Error, Description length too short."
+        return errors
 
 class Network(models.Model):
     name = models.CharField(max_length=255)

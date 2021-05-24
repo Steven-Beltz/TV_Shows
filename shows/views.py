@@ -23,9 +23,9 @@ def create(request):
     else:
         errors = Show.objects.basic_validator(request.POST)
         if len(errors) > 0:
-            for k, v in errors.items():
-                messages.error(request, v)
-            return redirect('/')
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/shows/new')
         else:
             new_title = request.POST['title']
             network = request.POST['network']
@@ -35,7 +35,7 @@ def create(request):
 
             Show.objects.create(title=new_title, network=new_network, release_date=new_date, desc=new_desc)
             messages.success(request, "Show Creation Successful!")
-            return redirect('/')
+            return redirect('/shows/new')
 
 def edit(request, show_id):
     show = Show.objects.get(id=show_id)
@@ -49,7 +49,7 @@ def edit(request, show_id):
         if len(errors) > 0:
             for k, v in errors.items():
                 messages.error(request, v)
-            return redirect('/')
+            return redirect(f'/shows/{show.id}/edit')
         else:
             title = request.POST['title']
             network = request.POST['network']
@@ -62,7 +62,7 @@ def edit(request, show_id):
             show.desc = desc
             show.save()
             messages.success(request, "Show successfully updated!")
-            return redirect(f'/shows/{show.id}')
+            return redirect(f'/shows/{show.id}/edit')
 
 def delete(request, show_id):
     show = Show.objects.get(id=show_id)

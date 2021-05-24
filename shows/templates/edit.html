@@ -9,7 +9,7 @@
 </head>
 <body>
     <h2>Edit Show {{show.id}}</h2>
-    <a href ="/shows">Go Back</a>
+    <a href ="/shows/{{show.id}}/edit">Go Back</a>
     {% if messages %}
         <ul class="messages">
             {% for message in messages %}
